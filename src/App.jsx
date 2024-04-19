@@ -4,6 +4,7 @@
 import { Header } from "./layout/Header.jsx"
 import { TodosReducer } from "./pages/TodosReducer.jsx"
 import { Todos } from "./pages/Todos.jsx"
+import { AppTodoFilter } from "./pages/TodosFilter.jsx"
 
 import { NotFound } from './pages/NotFound.jsx'
 
@@ -42,6 +43,9 @@ function getPageContent(page, param) {
   }
   if (page === 'todos') {
     return <Todos />
+  }
+  if (page === 'todos-filter') {
+    return <AppTodoFilter />
   }
 
   return <NotFound page={page} />
