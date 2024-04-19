@@ -37,19 +37,22 @@ function LoadingCurrentComponent() {
   return <div>Chargement des composants en cours</div>
 }
 function getPageContent(page, param) {
-
+  /*
   if (page === 'todos-reducer') {
     return <TodosReducer />
   }
   if (page === 'todos') {
     return <Todos />
   }
+
   if (page === 'todos-filter') {
     return <AppTodoFilter />
   }
+  */
 
-  return <NotFound page={page} />
 
+  //return <NotFound page={page} />
+  return <AppTodoFilter />
 }
 /*
 function App() {

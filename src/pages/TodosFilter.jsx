@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useLocalStorage } from '../hooks/useLocalStorage.js'; // Adjust the import path as necessary
+
 import '../assets/styles/filter.css';
 
 // const todos = [
@@ -23,9 +25,26 @@ function Header() {
 
 
 function Main() {
-  const [tasks, setTasks] = useState([])
+  //const [tasks, setTasks] = useState([])
+  const [tasks, setTasks] = useLocalStorage('tasks', []);
+
   const [taskName, setTaskName] = useState('')
   const [links, setLinks] = useState('All')
+
+  // Load tasks from localStorage when the component mounts
+  // Save tasks to localStorage whenever tasks state changes
+  /*
+  useEffect(() => {
+    const storedTasks = localStorage.getItem('tasks');
+    if (storedTasks) {
+      setTasks(JSON.parse(storedTasks));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }, [tasks]);
+  */
   let curTasks;
   const itemLeft = tasks.filter(task => task.completed === false).length
 
@@ -131,3 +150,49 @@ function WelcomeMessage() {
       Add a todo to get started! </h3>
   </div>
 }
+
+
+/*
+import { useState, useEffect } from 'react';
+import useLocalStorage from './useLocalStorage'; // Adjust the import path as necessary
+
+function Main() {
+ const [tasks, setTasks] = useLocalStorage('tasks', []);
+ const [taskName, setTaskName] = useState('');
+ const [links, setLinks] = useState('All');
+
+ let curTasks;
+ const itemLeft = tasks.filter(task => task.completed === false).length;
+
+ if (links === 'All') curTasks = tasks;
+ if (links === 'Active') curTasks = tasks.filter(task => task.completed === false);
+ if (links === 'Completed') curTasks = tasks.filter(task => task.completed === true);
+
+ function addTask() {
+    setTasks(tasks => [...tasks, { id: Date.now(), name: taskName, completed: false }]);
+    setTaskName('');
+ }
+
+ function deleteTask(id) {
+    setTasks(tasks => tasks.filter(task => task.id !== id));
+ }
+
+ function toggleCompleted(id) {
+    setTasks(tasks => tasks.map(task => task.id === id ? { ...task, completed: !task.completed } : task));
+ }
+
+ function clearCompleted() {
+    setTasks(tasks => tasks.filter(task => task.completed === false));
+ }
+
+ return (
+    <main>
+      <Form taskName={taskName} setTaskName={setTaskName} onAddTask={addTask} />
+      {tasks.length <= 0 ? <WelcomeMessage /> :
+        <Footer itemLeft={itemLeft} links={links} setLinks={setLinks} onClearCompleted={clearCompleted} />}
+      <TodoList tasks={curTasks} setTasks={setTasks} onDeleteTask={deleteTask} onToggleCompleted={toggleCompleted} />
+    </main>
+ );
+}
+
+*/
