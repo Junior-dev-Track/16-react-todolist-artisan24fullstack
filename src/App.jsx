@@ -13,7 +13,7 @@ import { Alert } from "./components/Feedback/Alert.jsx"
 import { useHashNavigation } from "./hooks/useHashNavigation.js"
 import { ErrorBoundary } from "react-error-boundary"
 
-import './../dist/styles/style.css'
+import '../src/assets/styles/index.css'
 function App() {
 
   const { page, param } = useHashNavigation()
